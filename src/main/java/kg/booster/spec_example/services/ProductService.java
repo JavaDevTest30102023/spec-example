@@ -8,4 +8,6 @@ public interface ProductService {
 
     List<Product> findProducts(Long id, String name, Double minPrice, Double maxPrice);
     List<Product> findProducts(Long id, String name, Double minPrice, Double maxPrice, String categoryName, Boolean active);
+
+    List<Product> findProducts(Long id, String name, Double minPrice, Double maxPrice, String categoryName, Boolean categoryActive, Long shopId);
 }

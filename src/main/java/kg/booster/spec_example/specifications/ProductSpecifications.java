@@ -4,6 +4,7 @@ import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.JoinType;
 import kg.booster.spec_example.models.Category;
 import kg.booster.spec_example.models.Product;
+import kg.booster.spec_example.models.Shop;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.sql.DriverPropertyInfo;
@@ -60,6 +61,18 @@ public class ProductSpecifications {
             Join<Product, Category> categoryJoin = root.join("category", JoinType.INNER);
             return criteriaBuilder.equal(categoryJoin.get("active"), active);
 
+        };
+    }
+
+    public static Specification<Product> byShopId(Long shopId){
+        return (root, query, criteriaBuilder) -> {
+            if (shopId == null || shopId < 0)
+                return criteriaBuilder.conjunction();
+
+            Join<Product, Category> categoryJoin = root.join("category", JoinType.INNER);
+            Join<Category, Shop> shopJoin = categoryJoin.join("shop", JoinType.INNER);
+
+            return criteriaBuilder.equal(shopJoin.get("id"),shopId);
         };
     }
 
