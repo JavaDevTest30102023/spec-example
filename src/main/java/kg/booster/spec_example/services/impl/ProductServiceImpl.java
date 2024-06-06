@@ -29,4 +29,18 @@ public class ProductServiceImpl implements ProductService {
 
         return products;
     }
+
+    @Override
+    public List<Product> findProducts(Long id, String name, Double minPrice, Double maxPrice, String categoryName, Boolean active) {
+        Specification<Product> specification = Specification
+                .where(ProductSpecifications.byId(id))
+                .and(ProductSpecifications.hasName(name))
+                .and(ProductSpecifications.betweenPrice(minPrice, maxPrice))
+                .and(ProductSpecifications.byCategoryName(categoryName))
+                .and(ProductSpecifications.byCategoryActive(active));
+
+        List<Product> products = productRepo.findAll(specification);
+
+        return products;
+    }
 }

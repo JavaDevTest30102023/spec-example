@@ -1,6 +1,9 @@
 package kg.booster.spec_example.models;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,20 +11,14 @@ import lombok.experimental.FieldDefaults;
 
 @Getter
 @Setter
-@Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "products")
-public class Product {
-
+@Entity
+@Table(name = "categories")
+public class Category {
     @Id
-    @GeneratedValue
+            @GeneratedValue
     Long id;
     String name;
-    Double price;
-
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    Category category;
-
+    boolean active;
 
 }
